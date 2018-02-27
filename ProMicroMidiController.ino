@@ -6,6 +6,9 @@
 #define BUTTON_PIN_2 4
 #define BUTTON_PIN_3 5
 
+// the MIDI channel number to send messages
+const int channel = 1;
+
 Bounce debouncer0 = Bounce(); 
 Bounce debouncer1 = Bounce(); 
 Bounce debouncer2 = Bounce(); 
@@ -13,17 +16,9 @@ Bounce debouncer3 = Bounce();
 
 int const numDigPinsCC = 4; // number of digital pins to send CC
 int currentDigcc[numDigPinsCC];
-int digitalpincc[] = {
-   2,3,4,5 // which digital pins to use for sending CC - CHANGE TO BUTTON_PIN
-};
+int digitalpincc[] = {BUTTON_PIN_0, BUTTON_PIN_1, BUTTON_PIN_2, BUTTON_PIN_3};
 int digInputcc[numDigPinsCC];
 int value[] = {0, 0, 0, 0};
-
-
-
-
-// the MIDI channel number to send messages
-const int channel = 1;
 
 void controlChange(byte channel, byte control, byte value) {
   midiEventPacket_t event = {0x0B, 0xB0 | channel, control, value};
@@ -44,7 +39,6 @@ void setup() {
   debouncer3.attach(BUTTON_PIN_3);
   debouncer3.interval(5); // interval in ms
 
-  Serial.begin(38400);
 
 }
 
